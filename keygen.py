@@ -12,31 +12,23 @@ class KeyGen:
     def random_digit(self) -> int: 
         return c(range(10))
         
-    def num_key(self, length:int=6) -> str:
-        return ''.join(str(self.random_digit()) for i in range(length))
+    def num_key(self, key_len=6) -> str:
+        return ''.join(str(self.random_digit()) for i in range(key_len))
 
     def datetime_key(self) -> str:
         return dt.today().strftime(self.DATETIME_FORMAT_KEY)
 
-    def key(self) -> str:
-        key = self.alpha_key(2).upper()
-        key += self.alphanumeric_key(5).upper()
-        key += self.datetime_key()
-        return key
-
-    def transaction_id(self) -> str:
-        key = self.TXN_ID_HEAD + self.datetime_key()
-        key += self.alphanumeric_key(4).upper()        
-        return key
+    def transaction_id(self, head=TXN_ID_HEAD, tail_len=4) -> str:
+        return  head + self.datetime_key() + self.alphanumeric_key(tail_len).upper()
     
-    def alpha_key(self, length:int=69) -> str:
-        return ''.join([self.random_az() for i in range(length)])
+    def alpha_key(self, key_len=69) -> str:
+        return ''.join([self.random_az() for i in range(key_len)])
 
-    def alphanumeric_key(self, length:int=69) -> str:
+    def alphanumeric_key(self, key_len=69) -> str:
         return ''.join([
         str(c([self.random_az, self.random_digit])()) 
-        for i in range(length)
+        for i in range(key_len)
         ])
 
-    def unique_name(self):
-        return self.alphanumeric_key(5) + self.datetime_key()
+    def timestamped_alphanumeric_id(self, head_len=5):
+        return self.alphanumeric_key(head_len) + self.datetime_key()
