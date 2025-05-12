@@ -1,6 +1,6 @@
 # 🔐 KeyGen - Secure Random Key Generator
 
-`keygen.py` is a simple, secure Python module designed to generate unique, cryptographically secure keys and IDs. It’s perfect for creating transaction identifiers, OTPs, verification codes, and any use case where non-predictable strings are required.
+`keygen.py` is a simple, secure Python module that generates unique, cryptographically secure keys and IDs. It’s perfect for creating transaction identifiers, OTPs, verification codes, and any use case requiring non-predictable strings.
 
 ---
 
@@ -26,26 +26,24 @@ Simply clone or download `keygen.py`:
 ## 📚 Usage
 
 ```bash
-git clone https://github.com/yourusername/keygen.git
-
 from keygen import KeyGen
 
 kg = KeyGen()
 
-# Generate a 6-digit OTP (numeric code)
-print(kg.num_key())  # Example: '842613'
+# Generate a 6-digit OTP or numeric verification code
+print(kg.num_key())  # Example: '804219'
 
-# Generate a random alphabetic key (e.g., for temporary names)
-print(kg.alpha_key(5))  # Example: 'pQwEr'
+# Generate a 4-character alphabetic key
+print(kg.alpha_key(key_len=4))  # Example: 'XrTp'
 
-# Generate a random alphanumeric key
-print(kg.alphanumeric_key(8))  # Example: 'R3t8Wq9Z'
+# Generate an 8-character alphanumeric key
+print(kg.alphanumeric_key(key_len=8))  # Example: 'A3d9Fg7Q'
 
-# Generate a secure key with embedded timestamp
-print(kg.key())  # Example: 'QM9xT5194210509273512'
+# Generate a timestamped alphanumeric ID (good for filenames or short IDs)
+print(kg.timestamped_alphanumeric_id(head_len=5))  # Example: 'aB9QX120515051234'
 
-# Generate a transaction ID
-print(kg.transaction_id())  # Example: 'TXN194210509273512XF8A'
+# Generate a full transaction ID with optional prefix and random suffix
+print(kg.transaction_id(head='TXN', tail_len=4))  # Example: 'TXN120515051234PQ9D'
 
-# Generate a unique username or identifier
-print(kg.unique_name())  # Example: 'D4r8B194210509273512'
+# Generate a datetime string key (microsecond precision)
+print(kg.datetime_key())  # Example: '120515051234'
